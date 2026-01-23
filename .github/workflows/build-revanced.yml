@@ -1,4 +1,4 @@
-name: Build ReVanced YT
+name: Build YTReVanced
 
 on:
   workflow_dispatch:  # Manual trigger
@@ -225,7 +225,7 @@ jobs:
           fi
           
           cat <<EOF > yt-revanced-info.md
-          ## 💡 ReVanced YT Build Information
+          ## 💡 YTReVanced Build Information
 
           - **📺 YT Version**: \`${YT_VERSION}\` [SHA-256]($URL)
           - **📦 APK Filename**: \`${FILENAME}\`

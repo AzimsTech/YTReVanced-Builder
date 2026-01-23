@@ -1,6 +1,6 @@
-![cover](cover.png)
+![cover](cover.svg)
 
-# ReVanced-Builder :hammer: <img src="qrcode.png" width="24%" align="right" />
+# YTReVanced-Builder :hammer: <img src="qrcode.png" width="24%" align="right" />
 
 [![Downloads][downloads-shield]][downloads-url]
 [![GitHub Workflow Status][ci-status-shield]][ci-url]
@@ -8,10 +8,10 @@
 
 [<img src="https://github.com/ImranR98/Obtainium/blob/main/assets/graphics/badge_obtainium.png"
     alt="Get it on Obtainium"
-    height="80">](https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22app.revanced.android.youtube%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2FAzimsTech%2FReVanced-Builder%22%2C%22author%22%3A%22AzimsTech%22%2C%22name%22%3A%22YouTube%20ReVanced%22%2C%22preferredApkIndex%22%3A0%2C%22additionalSettings%22%3A%22%7B%5C%22includePrereleases%5C%22%3Afalse%2C%5C%22fallbackToOlderReleases%5C%22%3Atrue%2C%5C%22filterReleaseTitlesByRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22filterReleaseNotesByRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22verifyLatestTag%5C%22%3Afalse%2C%5C%22sortMethodChoice%5C%22%3A%5C%22date%5C%22%2C%5C%22useLatestAssetDateAsReleaseDate%5C%22%3Afalse%2C%5C%22releaseTitleAsVersion%5C%22%3Afalse%2C%5C%22trackOnly%5C%22%3Afalse%2C%5C%22versionExtractionRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22matchGroupToUse%5C%22%3A%5C%22%5C%22%2C%5C%22versionDetection%5C%22%3Afalse%2C%5C%22releaseDateAsVersion%5C%22%3Afalse%2C%5C%22useVersionCodeAsOSVersion%5C%22%3Afalse%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22%5E%5BA-Za-z0-9._-%5D%2B-patched.apk%5C%22%2C%5C%22invertAPKFilter%5C%22%3Afalse%2C%5C%22autoApkFilterByArch%5C%22%3Atrue%2C%5C%22appName%5C%22%3A%5C%22%5C%22%2C%5C%22appAuthor%5C%22%3A%5C%22%5C%22%2C%5C%22shizukuPretendToBeGooglePlay%5C%22%3Afalse%2C%5C%22allowInsecure%5C%22%3Afalse%2C%5C%22exemptFromBackgroundUpdates%5C%22%3Afalse%2C%5C%22skipUpdateNotifications%5C%22%3Afalse%2C%5C%22about%5C%22%3A%5C%22%5C%22%2C%5C%22refreshBeforeDownload%5C%22%3Afalse%7D%22%2C%22overrideSource%22%3A%22GitHub%22%7D)
+    height="80">](https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22app.revanced.android.youtube%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2FAzimsTech%2FYTReVanced-Builder%22%2C%22author%22%3A%22AzimsTech%22%2C%22name%22%3A%22YouTube%20ReVanced%22%2C%22preferredApkIndex%22%3A0%2C%22additionalSettings%22%3A%22%7B%5C%22includePrereleases%5C%22%3Afalse%2C%5C%22fallbackToOlderReleases%5C%22%3Atrue%2C%5C%22filterReleaseTitlesByRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22filterReleaseNotesByRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22verifyLatestTag%5C%22%3Afalse%2C%5C%22sortMethodChoice%5C%22%3A%5C%22date%5C%22%2C%5C%22useLatestAssetDateAsReleaseDate%5C%22%3Afalse%2C%5C%22releaseTitleAsVersion%5C%22%3Afalse%2C%5C%22trackOnly%5C%22%3Afalse%2C%5C%22versionExtractionRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22matchGroupToUse%5C%22%3A%5C%22%5C%22%2C%5C%22versionDetection%5C%22%3Afalse%2C%5C%22releaseDateAsVersion%5C%22%3Afalse%2C%5C%22useVersionCodeAsOSVersion%5C%22%3Afalse%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22%5E%5BA-Za-z0-9._-%5D%2B-patched.apk%5C%22%2C%5C%22invertAPKFilter%5C%22%3Afalse%2C%5C%22autoApkFilterByArch%5C%22%3Atrue%2C%5C%22appName%5C%22%3A%5C%22%5C%22%2C%5C%22appAuthor%5C%22%3A%5C%22%5C%22%2C%5C%22shizukuPretendToBeGooglePlay%5C%22%3Afalse%2C%5C%22allowInsecure%5C%22%3Afalse%2C%5C%22exemptFromBackgroundUpdates%5C%22%3Afalse%2C%5C%22skipUpdateNotifications%5C%22%3Afalse%2C%5C%22about%5C%22%3A%5C%22%5C%22%2C%5C%22refreshBeforeDownload%5C%22%3Afalse%7D%22%2C%22overrideSource%22%3A%22GitHub%22%7D)
 
 
-🤖 Automate the process of downloading, patching, and releasing a patched Revanced YT APK.
+🤖 Automate the process of downloading, patching, and releasing a patched YTReVanced APK.
 
 | Script              | Description                                                                                                                                                         |
 |:--------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -24,11 +24,11 @@
 
 <!-- Shields -->
 
-[ci-status-shield]: https://img.shields.io/github/actions/workflow/status/azimstech/revanced-builder/build-revanced.yml?style=for-the-badge
-[ci-url]:https://github.com/AzimsTech/ReVanced-Builder/actions/workflows/build-revanced.yml
-[downloads-shield]: https://img.shields.io/github/downloads/azimstech/revanced-builder/total?style=for-the-badge&logo=github
-[downloads-url]: https://github.com/azimstech/revanced-builder/releases/latest
-[release-shield]: https://img.shields.io/github/v/release/azimstech/revanced-builder?style=for-the-badge
+[ci-status-shield]: https://img.shields.io/github/actions/workflow/status/azimstech/YTReVanced-Builder/build-revanced.yml?style=for-the-badge
+[ci-url]:https://github.com/AzimsTech/YTReVanced-Builder/actions/workflows/build-revanced.yml
+[downloads-shield]: https://img.shields.io/github/downloads/azimstech/YTReVanced-Builder/total?style=for-the-badge&logo=github
+[downloads-url]: https://github.com/azimstech/YTReVanced-Builder/releases/latest
+[release-shield]: https://img.shields.io/github/v/release/azimstech/YTReVanced-Builder?style=for-the-badge
 
 <!-- Urls -->
 
