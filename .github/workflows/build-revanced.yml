@@ -216,6 +216,7 @@ jobs:
           ORIGINAL_APK="${{ env.DOWNLOADS_DIR }}/yt-${YT_VERSION}.apk"
           HAS_CHANGELOG="${{ steps.generate-changelog.outputs.has_changelog }}"
           CHANGELOG_URL="${{ steps.generate-changelog.outputs.url }}"
+          DL_URL="https://github.com/${{ github.repository }}/releases/download/${{ steps.get-dev-patches-version.outputs.version }}/${FILENAME}"
           
           # Generate changelog section if available
           CHANGELOG_SECTION=""
@@ -236,10 +237,10 @@ jobs:
           -----
           ### 🔐 APK file hashes 
 
-          | SHA-256 Checksum | Filename |
-          |-----------------|----------|
-          | \`$(sha256sum ${FILENAME} | awk '{print $1}')\` | ${FILENAME} |
-          | \`$(sha256sum ${ORIGINAL_APK} | awk '{print $1}')\` | yt-${YT_VERSION}.apk (original) |
+          | Filename                        | SHA-256 Checksum                                    |
+          |:--------------------------------|:----------------------------------------------------|
+          | [${FILENAME}](${DL_URL})        | \`$(sha256sum ${FILENAME} | awk '{print $1}')\`     |
+          | yt-${YT_VERSION}.apk (original) | \`$(sha256sum ${ORIGINAL_APK} | awk '{print $1}')\` |
           EOF
 
       - name: Create GitHub release
