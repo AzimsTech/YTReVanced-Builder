@@ -11,7 +11,7 @@ env:
   JAVA_DISTRIBUTION: 'zulu'
   ARCH: 'arm64-v8a'
   DOWNLOADS_DIR: 'downloads'
-  KEYSTORE_NAME: 'yt-patched.keystore'
+  KEYSTORE_NAME: 'yt-morphe-patched.keystore'
   TIMEZONE: 'Asia/Kuala_Lumpur'
 
 jobs:
