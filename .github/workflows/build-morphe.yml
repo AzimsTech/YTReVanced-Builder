@@ -32,20 +32,20 @@ jobs:
       - name: Make scripts executable
         run: chmod +x *.sh
 
-      - name: Get MorpheApp CLI version (Stable)
+      - name: Get Morphe CLI version (Stable)
         id: get-stable-cli-version
         run: |
           VERSION=$(./get-stable-cli.sh --version-only)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Cache MorpheApp CLI
+      - name: Cache Morphe CLI
         id: cache-cli
         uses: actions/cache@v4
         with:
           path: morphe-cli-*-all.jar
           key: morphe-cli-${{ steps.get-stable-cli-version.outputs.version }}
 
-      - name: Download MorpheApp CLI
+      - name: Download Morphe CLI
         if: steps.cache-cli.outputs.cache-hit != 'true'
         run: |
           VERSION=$(./get-stable-cli.sh)
@@ -57,14 +57,14 @@ jobs:
           VERSION=$(./get-dev-mpp.sh --version-only)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Cache MorpheApp Patches
+      - name: Cache Morphe Patches
         id: cache-patches
         uses: actions/cache@v4
         with:
           path: patches-*-dev.*.mpp
           key: morphe-patches-${{ steps.get-dev-patches-version.outputs.version }}
 
-      - name: Download MorpheApp Patches
+      - name: Download Morphe Patches
         if: steps.cache-patches.outputs.cache-hit != 'true'
         run: |
           VERSION=$(./get-dev-mpp.sh)
@@ -158,7 +158,7 @@ jobs:
           EOF
           ./apkmd apps.json
 
-      - name: Cache MorpheApp keystore
+      - name: Cache Morphe keystore
         id: cache-keystore
         uses: actions/cache@v4
         with:
@@ -168,7 +168,7 @@ jobs:
       - name: Set output filename
         id: set-filename
         run: |
-          FILENAME="yt_${{ steps.yt-version.outputs.version }}_${{ steps.get-dev-patches-version.outputs.version }}-patched.apk"
+          FILENAME="YTMorphe_${{ steps.yt-version.outputs.version }}_${{ steps.get-dev-patches-version.outputs.version }}-patched.apk"
           echo "filename=$FILENAME" >> $GITHUB_OUTPUT
 
       - name: Download keystore from latest release
@@ -226,12 +226,12 @@ jobs:
           fi
           
           cat <<EOF > yt-morphe-info.md
-          ## 💡 YTReVanced Build Information
+          ## 💡 YTMorphe Build Information
 
           - **📺 YT Version**: \`${YT_VERSION}\` [SHA-256]($URL)
           - **📦 APK Filename**: \`${FILENAME}\`
-          - **🧩 MorpheApp Patches Version**: \`${PATCHES_VERSION}\`
-          - **🔨 MorpheApp CLI Version**: \`${CLI_VERSION}\`$CHANGELOG_SECTION
+          - **🧩 Morphe Patches Version**: \`${PATCHES_VERSION}\`
+          - **🔨 Morphe CLI Version**: \`${CLI_VERSION}\`$CHANGELOG_SECTION
           - **📅 Build Date**: \`$(TZ=${{ env.TIMEZONE }} date +%Y-%m-%d)\` \`$(TZ=${{ env.TIMEZONE }} date +%H:%M:%S%:z)\`
 
           -----
@@ -246,7 +246,7 @@ jobs:
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          name: "📺 YT ${{ steps.yt-version.outputs.version }} | 🧩 ${{ steps.get-dev-patches-version.outputs.version }}"
+          name: "📺 YTMorphe ${{ steps.yt-version.outputs.version }} | 🧩 ${{ steps.get-dev-patches-version.outputs.version }}"
           tag_name: ${{ steps.get-dev-patches-version.outputs.version }}
           body_path: yt-morphe-info.md
           files: |
