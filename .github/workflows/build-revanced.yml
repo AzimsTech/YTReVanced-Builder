@@ -32,20 +32,20 @@ jobs:
       - name: Make scripts executable
         run: chmod +x *.sh
 
-      - name: Get ReVanced CLI version (Stable)
+      - name: Get MorpheApp CLI version (Stable)
         id: get-stable-cli-version
         run: |
           VERSION=$(./get-stable-cli.sh --version-only)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Cache ReVanced CLI
+      - name: Cache MorpheApp CLI
         id: cache-cli
         uses: actions/cache@v4
         with:
-          path: revanced-cli-*-all.jar
-          key: revanced-cli-${{ steps.get-stable-cli-version.outputs.version }}
+          path: morphe-cli-*-all.jar
+          key: morphe-cli-${{ steps.get-stable-cli-version.outputs.version }}
 
-      - name: Download ReVanced CLI
+      - name: Download MorpheApp CLI
         if: steps.cache-cli.outputs.cache-hit != 'true'
         run: |
           VERSION=$(./get-stable-cli.sh)
@@ -54,20 +54,20 @@ jobs:
       - name: Get Dev Patches version
         id: get-dev-patches-version
         run: |
-          VERSION=$(./get-dev-rvp.sh --version-only)
+          VERSION=$(./get-dev-mpp.sh --version-only)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Cache ReVanced Patches
+      - name: Cache MorpheApp Patches
         id: cache-patches
         uses: actions/cache@v4
         with:
-          path: patches-*-dev.*.rvp
-          key: revanced-patches-${{ steps.get-dev-patches-version.outputs.version }}
+          path: patches-*-dev.*.mpp
+          key: morphe-patches-${{ steps.get-dev-patches-version.outputs.version }}
 
-      - name: Download ReVanced Patches
+      - name: Download MorpheApp Patches
         if: steps.cache-patches.outputs.cache-hit != 'true'
         run: |
-          VERSION=$(./get-dev-rvp.sh)
+          VERSION=$(./get-dev-mpp.sh)
           echo "Downloaded patches version: $VERSION"
 
       - name: Get APKMirror Downloader version
@@ -98,7 +98,7 @@ jobs:
       - name: Get last release tag and extract patch version
         id: get-last-patch
         run: |
-          latest_version=$(./get-dev-rvp.sh --version-only || true)
+          latest_version=$(./get-dev-mpp.sh --version-only || true)
           current_tag=$(git tag -l --sort=-version:refname | head -n1 || true)
 
           # If equal, fallback to previous tag
@@ -121,7 +121,7 @@ jobs:
           latest_version="${{ steps.get-last-patch.outputs.latest_version }}"
 
           if [[ "$latest_version" != "none" && "$latest_version" != "$current_tag" ]]; then
-            CHANGELOG_URL="https://github.com/ReVanced/revanced-patches/compare/${current_tag}...${latest_version}"
+            CHANGELOG_URL="https://github.com/MorpheApp/morphe-patches/compare/${current_tag}...${latest_version}"
             echo "url=$CHANGELOG_URL" >> $GITHUB_OUTPUT
             echo "has_changelog=true" >> $GITHUB_OUTPUT
           else
@@ -158,7 +158,7 @@ jobs:
           EOF
           ./apkmd apps.json
 
-      - name: Cache ReVanced keystore
+      - name: Cache MorpheApp keystore
         id: cache-keystore
         uses: actions/cache@v4
         with:
@@ -182,13 +182,13 @@ jobs:
       - name: Patch YT APK and generate keystore
         if: steps.cache-keystore.outputs.cache-hit != 'true' && steps.download-keystore.outputs.keystore_found != 'true'
         run: |
-            java -jar revanced-cli-*-all.jar patch -p patches-*-dev.*.rvp ${{ env.DOWNLOADS_DIR }}/yt-*.apk -o "${{ steps.set-filename.outputs.filename }}"
+            java -jar morphe-cli-*-all.jar patch -p patches-*-dev.*.mpp ${{ env.DOWNLOADS_DIR }}/yt-*.apk -o "${{ steps.set-filename.outputs.filename }}"
             mv yt_*-patched.keystore ${{ env.KEYSTORE_NAME }}
 
       - name: Patch YT APK with existing keystore
         if: steps.cache-keystore.outputs.cache-hit == 'true' || steps.download-keystore.outputs.keystore_found == 'true'
         run: |
-            java -jar revanced-cli-*-all.jar patch -p patches-*-dev.*.rvp ${{ env.DOWNLOADS_DIR }}/yt-*.apk --keystore ${{ env.KEYSTORE_NAME }} -o "${{ steps.set-filename.outputs.filename }}"
+            java -jar morphe-cli-*-all.jar patch -p patches-*-dev.*.mpp ${{ env.DOWNLOADS_DIR }}/yt-*.apk --keystore ${{ env.KEYSTORE_NAME }} -o "${{ steps.set-filename.outputs.filename }}"
 
       - name: Generate APKmirror url
         id: generate-apkmirror-url
@@ -225,13 +225,13 @@ jobs:
           - **📝 Changelog**: [\`$(basename "$CHANGELOG_URL")\`]($CHANGELOG_URL)"
           fi
           
-          cat <<EOF > yt-revanced-info.md
+          cat <<EOF > yt-morphe-info.md
           ## 💡 YTReVanced Build Information
 
           - **📺 YT Version**: \`${YT_VERSION}\` [SHA-256]($URL)
           - **📦 APK Filename**: \`${FILENAME}\`
-          - **🧩 ReVanced Patches Version**: \`${PATCHES_VERSION}\`
-          - **🔨 ReVanced CLI Version**: \`${CLI_VERSION}\`$CHANGELOG_SECTION
+          - **🧩 MorpheApp Patches Version**: \`${PATCHES_VERSION}\`
+          - **🔨 MorpheApp CLI Version**: \`${CLI_VERSION}\`$CHANGELOG_SECTION
           - **📅 Build Date**: \`$(TZ=${{ env.TIMEZONE }} date +%Y-%m-%d)\` \`$(TZ=${{ env.TIMEZONE }} date +%H:%M:%S%:z)\`
 
           -----
@@ -248,7 +248,7 @@ jobs:
         with:
           name: "📺 YT ${{ steps.yt-version.outputs.version }} | 🧩 ${{ steps.get-dev-patches-version.outputs.version }}"
           tag_name: ${{ steps.get-dev-patches-version.outputs.version }}
-          body_path: yt-revanced-info.md
+          body_path: yt-morphe-info.md
           files: |
             *.apk
             *.keystore

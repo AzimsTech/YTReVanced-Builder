@@ -1,8 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-# Get the latest YT version from ReVanced patches
-latest=$(java -jar revanced-cli-*-all.jar list-patches --with-packages --with-versions --with-options patches-*-dev.*.rvp | \
+# Get the latest YT version from Morphe patches
+latest=$(java -jar morphe-cli-*-all.jar list-patches --with-packages --with-versions --with-options patches-*-dev.*.mpp | \
 awk '
 /Package name: com\.google\.android\.youtube$/ { in_yt_block=1 }
 /^Index: [0-9]+$/ { in_yt_block=0 }
