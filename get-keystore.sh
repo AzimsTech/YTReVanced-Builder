@@ -19,10 +19,11 @@ fi
 
 echo "Found release: $latest_tag" >&2
 
-# Find keystore download URL
+# Find keystore download URL - match exact filename
 keystore_url=$(curl -s "$API" | jq -r \
   --arg tag "$latest_tag" \
-  '.[] | select(.tag_name==$tag) | .assets[] | select(.name | endswith(".keystore")) | .browser_download_url' \
+  --arg keystore "$KEYSTORE" \
+  '.[] | select(.tag_name==$tag) | .assets[] | select(.name==$keystore) | .browser_download_url' \
   | head -n1)
 
 if [ -n "$keystore_url" ]; then
@@ -30,6 +31,6 @@ if [ -n "$keystore_url" ]; then
     curl -sL "$keystore_url" -o "$KEYSTORE"
     echo "✅ Keystore downloaded: $KEYSTORE" >&2
 else
-    echo "❌ No keystore found in release" >&2
+    echo "❌ No keystore found in release with name: $KEYSTORE" >&2
     exit 1
 fi
