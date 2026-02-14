@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Requires GITHUB_REPOSITORY and KEYSTORE_NAME as arguments or env vars
 REPO="${1:-${GITHUB_REPOSITORY:-}}"
-KEYSTORE="${2:-${KEYSTORE_NAME:-yt-patched.keystore}}"
+KEYSTORE="${2:-${KEYSTORE_NAME:-yt-morphe-patched.keystore}}"
 
 [ -z "$REPO" ] && { echo "❌ GITHUB_REPOSITORY not set" >&2; exit 1; }
 
