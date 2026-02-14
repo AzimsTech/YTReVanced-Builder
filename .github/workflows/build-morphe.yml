@@ -2,8 +2,8 @@ name: Build YT Morphe
 
 on:
   workflow_dispatch:  # Manual trigger
-    branches:
-      - morphe
+  branches:
+    - morphe
 
 permissions:
   contents: write
