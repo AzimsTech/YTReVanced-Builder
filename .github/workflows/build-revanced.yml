@@ -168,7 +168,7 @@ jobs:
       - name: Set output filename
         id: set-filename
         run: |
-          FILENAME="yt_${{ steps.yt-version.outputs.version }}_${{ steps.get-dev-patches-version.outputs.version }}-patched.apk"
+          FILENAME="YTReVanced_${{ steps.yt-version.outputs.version }}_${{ steps.get-dev-patches-version.outputs.version }}-patched.apk"
           echo "filename=$FILENAME" >> $GITHUB_OUTPUT
 
       - name: Download keystore from latest release
@@ -183,7 +183,7 @@ jobs:
         if: steps.cache-keystore.outputs.cache-hit != 'true' && steps.download-keystore.outputs.keystore_found != 'true'
         run: |
             java -jar revanced-cli-*-all.jar patch -p patches-*-dev.*.rvp ${{ env.DOWNLOADS_DIR }}/yt-*.apk -o "${{ steps.set-filename.outputs.filename }}"
-            mv yt_*-patched.keystore ${{ env.KEYSTORE_NAME }}
+            mv YTReVanced_*-patched.keystore ${{ env.KEYSTORE_NAME }}
 
       - name: Patch YT APK with existing keystore
         if: steps.cache-keystore.outputs.cache-hit == 'true' || steps.download-keystore.outputs.keystore_found == 'true'
