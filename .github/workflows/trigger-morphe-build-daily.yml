@@ -24,7 +24,9 @@ jobs:
         run: |
           chmod +x *.sh
           latest_version=$(./get-dev-mpp.sh --version-only || true)
-          current_tag=$(git tag -l --sort=-version:refname | head -n1 || true)
+          current_tag=$(git tag -l --sort=-version:refname \
+            | grep -- '-morphe$' \
+            | head -n1 || true)
 
           # Defaults
           [ -z "$latest_version" ] && latest_version="none"
