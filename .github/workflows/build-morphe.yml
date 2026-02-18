@@ -247,7 +247,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: "📺 YTMorphe ${{ steps.yt-version.outputs.version }} | 🧩 ${{ steps.get-dev-patches-version.outputs.version }}"
-          tag_name: ${{ steps.get-dev-patches-version.outputs.version }}-morphie
+          tag_name: ${{ steps.get-dev-patches-version.outputs.version }}-morphe
           body_path: yt-morphe-info.md
           files: |
             *.apk
