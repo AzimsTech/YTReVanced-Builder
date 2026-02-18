@@ -216,7 +216,7 @@ jobs:
           ORIGINAL_APK="${{ env.DOWNLOADS_DIR }}/yt-${YT_VERSION}.apk"
           HAS_CHANGELOG="${{ steps.generate-changelog.outputs.has_changelog }}"
           CHANGELOG_URL="${{ steps.generate-changelog.outputs.url }}"
-          DL_URL="https://github.com/${{ github.repository }}/releases/download/${{ steps.get-dev-patches-version.outputs.version }}/${FILENAME}"
+          DL_URL="https://github.com/${{ github.repository }}/releases/download/${{ steps.get-dev-patches-version.outputs.version }}-revanced/${FILENAME}"
           
           # Generate changelog section if available
           CHANGELOG_SECTION=""
