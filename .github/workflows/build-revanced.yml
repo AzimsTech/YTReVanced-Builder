@@ -246,7 +246,7 @@ jobs:
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          name: "📺 YT ${{ steps.yt-version.outputs.version }} | 🧩 ${{ steps.get-dev-patches-version.outputs.version }}"
+          name: "📺 YTReVanced ${{ steps.yt-version.outputs.version }} | 🧩 ${{ steps.get-dev-patches-version.outputs.version }}"
           tag_name: ${{ steps.get-dev-patches-version.outputs.version }}
           body_path: yt-revanced-info.md
           files: |
