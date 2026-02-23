@@ -121,8 +121,11 @@ jobs:
           current_tag="${{ steps.get-last-patch.outputs.current_tag }}"
           latest_version="${{ steps.get-last-patch.outputs.latest_version }}"
 
-          if [[ "$latest_version" != "none" && "$latest_version" != "$current_tag" ]]; then
-            CHANGELOG_URL="https://github.com/MorpheApp/morphe-patches/compare/${current_tag}...${latest_version}"
+          # Strip the -morphe suffix so the URL points to the actual patch tag
+          current_tag_clean="${current_tag%-morphe}"
+
+          if [[ "$latest_version" != "none" && "$latest_version" != "$current_tag_clean" ]]; then
+            CHANGELOG_URL="https://github.com/MorpheApp/morphe-patches/compare/${current_tag_clean}...${latest_version}"
             echo "url=$CHANGELOG_URL" >> $GITHUB_OUTPUT
             echo "has_changelog=true" >> $GITHUB_OUTPUT
           else
