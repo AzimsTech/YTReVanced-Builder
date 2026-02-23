@@ -24,15 +24,18 @@ jobs:
         run: |
           chmod +x *.sh
           latest_version=$(./get-dev-mpp.sh --version-only || true)
-          current_tag=$(git tag -l --sort=-version:refname | head -n1 || true)
-
-          # Defaults
-          [ -z "$latest_version" ] && latest_version="none"
-          [ -z "$current_tag" ] && current_tag="none"
           
-          # Check if we should skip
+          # Fix 1: Filter tags to only include -morphe
+          current_tag=$(git tag -l "*-morphe" --sort=-version:refname | head -n1 || true)
+
+          # Fix 2: Use if blocks instead of && to prevent set -e workflow crashes
+          if [ -z "$latest_version" ]; then latest_version="none"; fi
+          if [ -z "$current_tag" ]; then current_tag="none"; fi
+          
           should_skip="false"
-          [ "$current_tag" = "$latest_version" ] && should_skip="true"
+          if [ "$current_tag" = "$latest_version" ]; then
+            should_skip="true"
+          fi
           
           echo "Latest version: $latest_version"
           echo "Current tag: $current_tag"
@@ -44,7 +47,7 @@ jobs:
             echo "should_skip=$should_skip"
           } >> "$GITHUB_OUTPUT"
       
-      - name: Trigger Revanced build workflow on morphe branch
+      - name: Trigger YTMorphe build workflow on morphe branch
         if: steps.get-last-patch.outputs.should_skip != 'true'
         uses: actions/github-script@v6
         with:
