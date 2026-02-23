@@ -96,23 +96,24 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Get last release tag and extract patch version
-        id: get-last-patch
-        run: |
-          latest_version=$(./get-dev-mpp.sh --version-only || true)
-          current_tag=$(git tag -l --sort=-version:refname | head -n1 || true)
-
-          # If equal, fallback to previous tag
-          [ "$latest_version" = "$current_tag" ] && \
-            current_tag=$(git tag -l --sort=-version:refname | sed -n '2p' || true)
-
-          # Defaults
-          [ -z "$latest_version" ] && latest_version="none"
-          [ -z "$current_tag" ] && current_tag="none"
-
-          {
-            echo "latest_version=$latest_version"
-            echo "current_tag=$current_tag"
-          } >> "$GITHUB_OUTPUT"
+          id: get-last-patch
+          run: |
+            latest_version=$(./get-dev-mpp.sh --version-only || true)
+            
+            # Added "*-morphe" to only list tags ending in -morphe
+            current_tag=$(git tag -l "*-morphe" --sort=-version:refname | head -n1 || true)
+            
+            # If equal, fallback to previous tag (also filtered for -morphe)
+            [ "$latest_version" = "$current_tag" ] && \
+              current_tag=$(git tag -l "*-morphe" --sort=-version:refname | sed -n '2p' || true)
+              
+            # Defaults
+            [ -z "$latest_version" ] && latest_version="none"
+            [ -z "$current_tag" ] && current_tag="none"
+            {
+              echo "latest_version=$latest_version"
+              echo "current_tag=$current_tag"
+            } >> "$GITHUB_OUTPUT"
 
       - name: Generate changelog URL
         id: generate-changelog
