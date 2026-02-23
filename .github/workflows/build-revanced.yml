@@ -101,8 +101,9 @@ jobs:
           latest_version=$(./get-dev-rvp.sh --version-only || true)
           current_tag=$(git tag -l --sort=-version:refname | head -n1 || true)
 
+          # Strip -revanced suffix before comparing so v1.x.x-dev.8 == v1.x.x-dev.8-revanced
           # If equal, fallback to previous tag
-          [ "$latest_version" = "$current_tag" ] && \
+          [ "$latest_version" = "${current_tag%-revanced}" ] && \
             current_tag=$(git tag -l --sort=-version:refname | sed -n '2p' || true)
 
           # Defaults
@@ -120,8 +121,11 @@ jobs:
           current_tag="${{ steps.get-last-patch.outputs.current_tag }}"
           latest_version="${{ steps.get-last-patch.outputs.latest_version }}"
 
-          if [[ "$latest_version" != "none" && "$latest_version" != "$current_tag" ]]; then
-            CHANGELOG_URL="https://github.com/ReVanced/revanced-patches/compare/${current_tag}...${latest_version}"
+          # Strip -revanced suffix so the URL uses the actual patch tag
+          current_tag_clean="${current_tag%-revanced}"
+
+          if [[ "$latest_version" != "none" && "$latest_version" != "$current_tag_clean" ]]; then
+            CHANGELOG_URL="https://github.com/ReVanced/revanced-patches/compare/${current_tag_clean}...${latest_version}"
             echo "url=$CHANGELOG_URL" >> $GITHUB_OUTPUT
             echo "has_changelog=true" >> $GITHUB_OUTPUT
           else
