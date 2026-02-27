@@ -27,6 +27,7 @@ jobs:
           
           # Fix 1: Filter tags to only include -morphe
           current_tag=$(git tag -l "*-morphe" --sort=-version:refname | head -n1 || true)
+          current_tag="${current_tag%-morphe}"
 
           # Fix 2: Use if blocks instead of && to prevent set -e workflow crashes
           if [ -z "$latest_version" ]; then latest_version="none"; fi
