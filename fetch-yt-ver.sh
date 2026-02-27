@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Get the latest YT version from ReVanced patches
-latest=$(java -jar revanced-cli-*-all.jar list-patches --with-packages --with-versions --with-options patches-*-dev.*.rvp | \
+latest=$(java -jar revanced-cli-*-all.jar list-patches --packages --versions --options -bp patches-*-dev.*.rvp | \
 awk '
 /Package name: com\.google\.android\.youtube$/ { in_yt_block=1 }
 /^Index: [0-9]+$/ { in_yt_block=0 }

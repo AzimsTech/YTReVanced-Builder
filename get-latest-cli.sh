@@ -1,23 +1,23 @@
 #!/bin/bash
 set -euo pipefail
 
-API="https://api.revanced.app/tools"
+GH_API="https://api.github.com/repos/revanced/revanced-cli/releases"
 
-# Get latest revanced-cli jar url
-jar_url=$(curl -s "$API" | jq -r '
-  .tools[]
-  | select(.repository=="revanced/revanced-cli")
+# Sort by published_at descending to guarantee newest release (including prereleases)
+jar_url=$(curl -s "$GH_API" | jq -r '
+  sort_by(.published_at) | reverse
+  | .[0].assets[]
   | select(.name | test("^revanced-cli-.*-all\\.jar$"))
   | .browser_download_url' | head -n1)
 
 [ -n "$jar_url" ] || { echo "❌ No revanced-cli jar found" >&2; exit 1; }
 
 filename="${jar_url##*/}"
-version=$(echo "$filename" | sed -E 's/^revanced-cli-([0-9.]+)-all\.jar$/\1/')
+version=$(echo "$filename" | sed -E 's/^revanced-cli-(.+)-all\.jar$/\1/')
 
 # Version-only mode
 if [[ "${1:-}" == "--version-only" ]]; then
-  echo "ReVanced CLI stable version: $version" >&2
+  echo "ReVanced CLI latest version: $version" >&2
   echo "$version"
   exit 0
 fi
