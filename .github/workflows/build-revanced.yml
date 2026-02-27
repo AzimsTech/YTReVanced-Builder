@@ -186,13 +186,13 @@ jobs:
       - name: Patch YT APK and generate keystore
         if: steps.cache-keystore.outputs.cache-hit != 'true' && steps.download-keystore.outputs.keystore_found != 'true'
         run: |
-            java -jar revanced-cli-*-all.jar patch -p patches-*-dev.*.rvp ${{ env.DOWNLOADS_DIR }}/yt-*.apk -o "${{ steps.set-filename.outputs.filename }}"
+            java -jar revanced-cli-*-all.jar patch -bp patches-*-dev.*.rvp ${{ env.DOWNLOADS_DIR }}/yt-*.apk -o "${{ steps.set-filename.outputs.filename }}"
             mv YTReVanced_*-patched.keystore ${{ env.KEYSTORE_NAME }}
 
       - name: Patch YT APK with existing keystore
         if: steps.cache-keystore.outputs.cache-hit == 'true' || steps.download-keystore.outputs.keystore_found == 'true'
         run: |
-            java -jar revanced-cli-*-all.jar patch -p patches-*-dev.*.rvp ${{ env.DOWNLOADS_DIR }}/yt-*.apk --keystore ${{ env.KEYSTORE_NAME }} -o "${{ steps.set-filename.outputs.filename }}"
+            java -jar revanced-cli-*-all.jar patch -bp patches-*-dev.*.rvp ${{ env.DOWNLOADS_DIR }}/yt-*.apk --keystore ${{ env.KEYSTORE_NAME }} -o "${{ steps.set-filename.outputs.filename }}"
 
       - name: Generate APKmirror url
         id: generate-apkmirror-url
