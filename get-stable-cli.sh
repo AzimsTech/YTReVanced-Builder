@@ -1,36 +1,23 @@
 #!/bin/bash
 set -euo pipefail
 
-API="https://api.github.com/repos/MorpheApp/morphe-cli/releases?per_page=10"
+API="https://api.github.com/repos/MorpheApp/morphe-cli/releases/latest"
 
-# Get releases (no retry, just fail if broken)
-releases=$(curl -s "$API" | jq '.')
+release=$(curl -s "$API")
+latest_tag=$(echo "$release" | jq -r '.tag_name')
 
-# Latest stable release by publish date
-latest_tag=$(echo "$releases" \
-  | jq -r '
-      map(select(.prerelease == false and .draft == false))
-      | sort_by(.published_at)
-      | last
-      | .tag_name
-    ')
+[ -n "$latest_tag" ] && [ "$latest_tag" != "null" ] || { echo "❌ No stable release found"; exit 1; }
 
-
-[ -n "$latest_tag" ] || { echo "❌ No release found"; exit 1; }
-
-# Version-only mode
 if [[ "${1:-}" == "--version-only" ]]; then
-  echo "ReVanced Patches dev version: $latest_tag" >&2 # log to console
+  echo "ReVanced Patches dev version: $latest_tag" >&2
   echo "$latest_tag"
   exit 0
 fi
 
 echo "Found stable release: $latest_tag" >&2
 
-# Download the .jar file
-download_url=$(echo "$releases" \
-  | jq -r --arg tag "$latest_tag" '
-    .[] | select(.tag_name == $tag) | .assets[]
+download_url=$(echo "$release" \
+  | jq -r '.assets[]
     | select(.name | test("^morphe-cli-.*-all\\.jar$"))
     | .browser_download_url' | head -n1)
 
