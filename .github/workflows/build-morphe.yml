@@ -148,6 +148,7 @@ jobs:
           {
             "options": {
               "arch": "${{ env.ARCH }}",
+              "fallbackArch": "universal",
               "outDir": "${{ env.DOWNLOADS_DIR }}"
             },
             "apps": [
