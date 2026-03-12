@@ -9,7 +9,7 @@ permissions:
 env:
   JAVA_VERSION: 21
   JAVA_DISTRIBUTION: 'zulu'
-  ARCH: 'arm64-v8a'
+  ARCH: 'universal'
   DOWNLOADS_DIR: 'downloads'
   KEYSTORE_NAME: 'yt-patched.keystore'
   TIMEZONE: 'Asia/Kuala_Lumpur'
@@ -148,6 +148,7 @@ jobs:
           {
             "options": {
               "arch": "${{ env.ARCH }}",
+              "fallbackArch": "arm64-v8a",
               "outDir": "${{ env.DOWNLOADS_DIR }}"
             },
             "apps": [
@@ -204,7 +205,7 @@ jobs:
           version_dash="${version//./-}"
 
           # Construct the URL
-          URL="https://www.apkmirror.com/apk/google-inc/youtube/youtube-${version_dash}-release/youtube-${version_dash}-2-android-apk-download/#safeDownload"
+          URL="https://www.apkmirror.com/apk/google-inc/youtube/youtube-${version_dash}-release/youtube-${version_dash}-4-android-apk-download/#safeDownload"
 
           # Output the URL
           echo "$URL"
