@@ -32,7 +32,7 @@ jobs:
       - name: Make scripts executable
         run: chmod +x *.sh
 
-      - name: Get ReVanced CLI version (Stable)
+      - name: Get latest ReVanced CLI version 
         id: get-latest-cli-version
         run: |
           VERSION=$(./get-latest-cli.sh --version-only)
@@ -42,7 +42,7 @@ jobs:
         id: cache-cli
         uses: actions/cache@v4
         with:
-          path: revanced-cli-*-all.jar
+          path: revanced-cli-${{ steps.get-latest-cli-version.outputs.version }}-all.jar
           key: revanced-cli-${{ steps.get-latest-cli-version.outputs.version }}
 
       - name: Download ReVanced CLI
