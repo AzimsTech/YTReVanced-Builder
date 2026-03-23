@@ -4,7 +4,7 @@ set -euo pipefail
 API="https://api.github.com/repos/MorpheApp/morphe-patches/releases?per_page=10"
 
 # Get releases (no retry, just fail if broken)
-releases=$(curl -s "$API" | jq '.')
+releases=$(curl -sL "$API")
 
 # Latest release by publish date (stable + prerelease)
 latest_tag=$(echo "$releases" \
