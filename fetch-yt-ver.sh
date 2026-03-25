@@ -5,7 +5,7 @@ latest=$(java -jar revanced-cli-*-all.jar list-patches \
   --packages --versions -bp patches-*-dev.*.rvp \
   --filter-package-name=com.google.android.youtube \
   | grep -E '^\s+[0-9]+\.[0-9]+\.[0-9]+\s*$' \
-  | tr -d ' ' \
+  | tr -d ' \t' \
   | sort -uV \
   | tail -n1)
 
