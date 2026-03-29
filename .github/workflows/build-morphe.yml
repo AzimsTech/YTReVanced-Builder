@@ -42,7 +42,7 @@ jobs:
         id: cache-cli
         uses: actions/cache@v4
         with:
-          path: morphe-cli-*-all.jar
+          path: morphe-cli-*.jar
           key: morphe-cli-${{ steps.get-latest-cli-version.outputs.version }}
 
       - name: Download Morphe CLI
@@ -188,13 +188,13 @@ jobs:
       - name: Patch YT APK and generate keystore
         if: steps.cache-keystore.outputs.cache-hit != 'true' && steps.download-keystore.outputs.keystore_found != 'true'
         run: |
-            java -jar morphe-cli-*-all.jar patch -p patches-*.mpp ${{ env.DOWNLOADS_DIR }}/yt-*.apk -o "${{ steps.set-filename.outputs.filename }}"
+            java -jar morphe-cli-*.jar patch -p patches-*.mpp ${{ env.DOWNLOADS_DIR }}/yt-*.apk -o "${{ steps.set-filename.outputs.filename }}"
             mv yt_*-patched.keystore ${{ env.KEYSTORE_NAME }}
 
       - name: Patch YT APK with existing keystore
         if: steps.cache-keystore.outputs.cache-hit == 'true' || steps.download-keystore.outputs.keystore_found == 'true'
         run: |
-            java -jar morphe-cli-*-all.jar patch -p patches-*.mpp ${{ env.DOWNLOADS_DIR }}/yt-*.apk --keystore ${{ env.KEYSTORE_NAME }} -o "${{ steps.set-filename.outputs.filename }}"
+            java -jar morphe-cli-*.jar patch -p patches-*.mpp ${{ env.DOWNLOADS_DIR }}/yt-*.apk --keystore ${{ env.KEYSTORE_NAME }} -o "${{ steps.set-filename.outputs.filename }}"
 
       - name: Generate APKmirror url
         id: generate-apkmirror-url
