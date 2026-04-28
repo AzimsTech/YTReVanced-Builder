@@ -1,35 +1,30 @@
 #!/bin/bash
 set -euo pipefail
 
-API="https://api.github.com/repos/ReVanced/revanced-patches/releases?per_page=10"
+API="https://api.revanced.app/v5/patches/prerelease"
 
-# Get releases (no retry, just fail if broken)
-releases=$(curl -sL "$API")
+# Get release info
+release=$(curl -sL "$API")
 
-# Latest release by publish date (stable + prerelease)
-latest_tag=$(echo "$releases" \
-  | jq -r 'sort_by(.published_at) | last | .tag_name')
-
+# Extract version tag
+latest_tag=$(echo "$release" | jq -r '.version')
 
 [ -n "$latest_tag" ] || { echo "❌ No release found"; exit 1; }
 
 # Version-only mode
 if [[ "${1:-}" == "--version-only" ]]; then
-  echo "ReVanced Patches dev version: $latest_tag" >&2 # log to console
+  echo "ReVanced Patches dev version: $latest_tag" >&2
   echo "$latest_tag"
   exit 0
 fi
 
 echo "Found prerelease: $latest_tag" >&2
 
-# Download the .rvp file
-download_url=$(echo "$releases" \
-  | jq -r --arg tag "$latest_tag" '
-    .[] | select(.tag_name == $tag) | .assets[]
-    | select(.name | test("^patches-.*\\.rvp$"))
-    | .browser_download_url' | head -n1)
+# Extract download URL
+download_url=$(echo "$release" | jq -r '.download_url')
 
 [ -n "$download_url" ] || { echo "❌ No .rvp found for $latest_tag"; exit 1; }
 
-curl -L "$download_url" -o "${download_url##*/}"
-echo "Downloaded: ${download_url##*/}"
+filename="patches-${latest_tag#v}.rvp"
+curl -L "$download_url" -o "$filename"
+echo "Downloaded: $filename"
