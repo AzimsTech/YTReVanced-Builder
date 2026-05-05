@@ -43,7 +43,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: morphe-cli-*.jar
-          key: morphe-cli-${{ steps.get-latest-cli-version.outputs.version }}
+          key: morphe-cli-${{ steps.get-latest-cli-version.outputs.version }}-all
 
       - name: Download Morphe CLI
         if: steps.cache-cli.outputs.cache-hit != 'true'
