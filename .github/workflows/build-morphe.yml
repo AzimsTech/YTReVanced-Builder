@@ -62,7 +62,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: patches-*.mpp
-          key: morphe-patches-${{ steps.get-dev-patches-version.outputs.version }}
+          key: morphe-patches-${{ steps.get-dev-patches-version.outputs.version }}.mpp
 
       - name: Download Morphe Patches
         if: steps.cache-patches.outputs.cache-hit != 'true'
