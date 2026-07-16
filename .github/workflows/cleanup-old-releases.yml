@@ -1,0 +1,46 @@
+name: Cleanup Old Releases and Tags
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday at midnight
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Cleanup old releases and tags
+        shell: bash
+        run: |
+          for SUFFIX in "-revanced" "-morphe"; do
+            KEEP=5
+            echo "=== Cleaning up $SUFFIX releases (keeping last $KEEP) ==="
+
+            TAGS=$(git tag -l "*$SUFFIX" --sort=-version:refname)
+            TOTAL=$(echo "$TAGS" | grep -c . || true)
+
+            if [ "$TOTAL" -le "$KEEP" ]; then
+              echo "Only $TOTAL $SUFFIX tags found, nothing to clean up."
+              continue
+            fi
+
+            echo "$TAGS" | tail -n +$((KEEP + 1)) | while read -r tag; do
+              echo "Deleting release for tag: $tag"
+              gh release delete "$tag" --yes 2>/dev/null || echo "  No release found for $tag"
+
+              echo "Deleting tag: $tag"
+              git push origin --delete "$tag" 2>/dev/null || echo "  Failed to delete remote tag $tag"
+              git tag -d "$tag" 2>/dev/null || true
+            done
+          done
