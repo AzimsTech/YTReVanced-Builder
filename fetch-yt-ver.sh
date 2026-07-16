@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-latest=$(java -jar morphe-cli-*.jar list-patches \
+latest=$(java -jar morphe-*-all.jar list-patches \
   --with-packages --with-versions --patches patches-*.mpp \
   --filter-package-name=com.google.android.youtube \
   | grep -E '^\s+[0-9]+\.[0-9]+\.[0-9]+\s*$' \
