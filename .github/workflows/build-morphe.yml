@@ -237,8 +237,8 @@ jobs:
 
           - **📺 YT Version**: \`${YT_VERSION}\` [SHA-256]($URL)
           - **📦 APK Filename**: \`${FILENAME}\`
-          - **🧩 Morphe Patches Version**: \`${PATCHES_VERSION}\`
-          - **🔨 Morphe CLI Version**: \`${CLI_VERSION}\`$CHANGELOG_SECTION
+          - **🧩 Morphe Patches Version**: \`${PATCHES_VERSION}\`$CHANGELOG_SECTION
+          - **🔨 Morphe CLI Version**: \`${CLI_VERSION}\`
           - **📅 Build Date**: \`$(TZ=${{ env.TIMEZONE }} date +%Y-%m-%d)\` \`$(TZ=${{ env.TIMEZONE }} date +%H:%M:%S%:z)\`
 
           -----
