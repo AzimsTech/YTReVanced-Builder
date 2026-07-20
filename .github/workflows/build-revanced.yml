@@ -235,8 +235,8 @@ jobs:
 
           - **📺 YT Version**: \`${YT_VERSION}\` [SHA-256]($URL)
           - **📦 APK Filename**: \`${FILENAME}\`
-          - **🧩 ReVanced Patches Version**: \`${PATCHES_VERSION}\`
-          - **🔨 ReVanced CLI Version**: \`${CLI_VERSION}\`$CHANGELOG_SECTION
+          - **🧩 ReVanced Patches Version**: \`${PATCHES_VERSION}\`$CHANGELOG_SECTION
+          - **🔨 ReVanced CLI Version**: \`${CLI_VERSION}\`
           - **📅 Build Date**: \`$(TZ=${{ env.TIMEZONE }} date +%Y-%m-%d)\` \`$(TZ=${{ env.TIMEZONE }} date +%H:%M:%S%:z)\`
 
           -----
