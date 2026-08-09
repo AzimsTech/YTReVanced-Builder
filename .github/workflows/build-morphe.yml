@@ -206,7 +206,7 @@ jobs:
           version_dash="${version//./-}"
 
           # Construct the URL
-          URL="https://www.apkmirror.com/apk/google-inc/youtube/youtube-${version_dash}-release/youtube-${version_dash}-4-android-apk-download/#safeDownload"
+          URL="https://www.apkmirror.com/apk/google-inc/youtube/youtube-${version_dash}-release/youtube-${version_dash}-2-android-apk-download/#safeDownload"
 
           # Output the URL
           echo "$URL"
