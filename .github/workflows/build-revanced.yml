@@ -132,6 +132,9 @@ jobs:
             echo "has_changelog=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Install curl_cffi (Cloudflare bypass for APKMirror)
+        run: python3 -m pip install --user -q curl_cffi
+
       - name: Cache YT APK 
         id: cache-apk
         uses: actions/cache@v6
