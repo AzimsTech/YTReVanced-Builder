@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0  # Fetch all history including tags
 
@@ -40,7 +40,7 @@ jobs:
 
       - name: Cache ReVanced CLI
         id: cache-cli
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: revanced-cli-${{ steps.get-latest-cli-version.outputs.version }}-all.jar
           key: revanced-cli-${{ steps.get-latest-cli-version.outputs.version }}
@@ -59,7 +59,7 @@ jobs:
 
       - name: Cache ReVanced Patches
         id: cache-patches
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: patches-*.rvp
           key: revanced-patches-${{ steps.get-dev-patches-version.outputs.version }}
@@ -78,7 +78,7 @@ jobs:
 
       - name: Cache APKMirror Downloader
         id: cache-apkmd
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: apkmd
           key: apkmd-${{ steps.get-apkmd-version.outputs.version }}
@@ -134,7 +134,7 @@ jobs:
 
       - name: Cache YT APK 
         id: cache-apk
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with: 
           path: ${{ env.DOWNLOADS_DIR }}/yt-${{ steps.yt-version.outputs.version }}.apk
           key: ${{ steps.yt-version.outputs.version }}
@@ -165,7 +165,7 @@ jobs:
 
       - name: Cache ReVanced keystore
         id: cache-keystore
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ${{ env.KEYSTORE_NAME }}
           key: ${{ env.KEYSTORE_NAME }}
@@ -249,7 +249,7 @@ jobs:
           EOF
 
       - name: Create GitHub release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           name: "📺 YTReVanced ${{ steps.yt-version.outputs.version }} | 🧩 ${{ steps.get-dev-patches-version.outputs.version }}"
           tag_name: ${{ steps.get-dev-patches-version.outputs.version }}-revanced

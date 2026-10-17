@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout morphe branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: morphe  # Checkout the morphe branch
           fetch-depth: 0  # Fetch all tags
@@ -50,7 +50,7 @@ jobs:
       
       - name: Trigger YTMorphe build workflow on morphe branch
         if: steps.get-last-patch.outputs.should_skip != 'true'
-        uses: actions/github-script@v6
+        uses: actions/github-script@v9
         with:
           script: |
             await github.rest.actions.createWorkflowDispatch({
