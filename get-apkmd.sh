@@ -1,7 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
-API="https://api.github.com/repos/tanishqmanuja/apkmirror-downloader/releases?per_page=1"
+# Uses AzimsTech fork of apkmirror-downloader (routes HTTP through curl to
+# bypass APKMirror's Cloudflare fingerprinting of Node/Bun fetch).
+API="https://api.github.com/repos/AzimsTech/apkmirror-downloader/releases?per_page=1"
 
 # Get latest tag
 latest_tag=$(curl -s "$API" | jq -r '.[0].tag_name // empty')
