@@ -4,8 +4,8 @@
 
 [![Downloads][downloads-shield]][downloads-url]
 [![GitHub Workflow Status][ci-status-shield]][ci-url]  
-[![Release][release-shield-revanced]][downloads-url]
-[![Release][release-shield-morphe]][downloads-url]
+[![Release][release-shield-revanced]][release-revanced-url]
+[![Release][release-shield-morphe]][release-morphe-url]
 
 
 | **YTReVanced**<br>[![badge][badge-img]][revanced-link] | **YTMorphe**<sup>New</sup><br>[![badge][badge-img]][morphe-link] |
@@ -33,6 +33,8 @@ Per-variant settings (CLI repo, flags, keystore name, tag suffix) live in `varia
 [downloads-url]: https://github.com/azimstech/YTReVanced-Builder/releases/latest
 [release-shield-revanced]: https://img.shields.io/github/v/release/AzimsTech/YTReVanced-Builder?filter=*-revanced&style=for-the-badge
 [release-shield-morphe]: https://img.shields.io/github/v/release/AzimsTech/YTReVanced-Builder?filter=*-morphe&style=for-the-badge
+[release-revanced-url]: https://github.com/AzimsTech/YTReVanced-Builder/releases/tag/v6.2.1-revanced
+[release-morphe-url]: https://github.com/AzimsTech/YTReVanced-Builder/releases/tag/v1.48.0-dev.12-morphe
 
 <!-- Urls -->
 

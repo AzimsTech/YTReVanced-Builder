@@ -346,3 +346,42 @@ jobs:
           make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # After a successful build, point the README release badges at each
+  # variant's latest release tag (releases/latest only knows one "latest").
+  update-readme:
+    needs: [plan, build]
+    if: always() && needs.plan.result == 'success' && needs.plan.outputs.matrix != '[]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0  # Need tags to resolve each variant's latest release
+
+      - name: Update latest-release links in README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          for s in revanced morphe; do
+            tag=$(git tag -l "*-${s}" --sort=-version:refname | head -n1)
+            [ -z "$tag" ] && continue
+            url="https://github.com/${GITHUB_REPOSITORY}/releases/tag/${tag}"
+            sed -i -E "s|^\[release-${s}-url\]:.*|[release-${s}-url]: ${url}|" .github/README.md
+            echo "$s -> $tag"
+          done
+
+          git add .github/README.md
+          if git diff --cached --quiet; then
+            echo "Links already up to date"
+            exit 0
+          fi
+
+          git commit -m "docs: point badge links at each variant's latest release"
+
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin main && exit 0
+            sleep 5
+          done
+          exit 1
