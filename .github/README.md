@@ -15,17 +15,20 @@
 
 | Script              | Description                                                                                                                                                         |
 |:--------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `get-latest-cli.sh` | Retrieves and downloads the latest [revanced-cli][cli-url] JAR URL from the Revanced API                                                                            |
+| `get-latest-cli.sh` | Retrieves and downloads the latest CLI JAR for the selected variant ([revanced-cli][cli-url] / Morphe)                                                              |
 | `get-dev-rvp.sh`    | Retrieves and downloads the latest pre-release of the [revanced-patches][patches-url] .RVP patch file.                                                              |
-| `fetch-yt-ver.sh`   | Uses [revanced-cli][cli-url] to extract and print the latest supported YT version from [revanced-patches][patches-url]                                              |
+| `get-dev-mpp.sh`    | Retrieves and downloads the latest release of [morphe-patches][morphe-patches-url] .MPP patch file.                                                                  |
+| `fetch-yt-ver.sh`   | Uses the variant's CLI to extract and print the latest supported YT version from its patches                                                                        |
 | `get-apkmd.sh`      | Fetch the latest apkmd binary release from the [tanishqmanuja/apkmirror-downloader][apkmd-url] GitHub repo , download it, save it as apkmd, and make it executable. |
 | `get-keystore.sh`      | Fetch the existing keystore from the release, download it and store in cache. |
+
+Per-variant settings (CLI repo, flags, keystore name, tag suffix) live in `variants/revanced.env` and `variants/morphe.env`.
 
 
 <!-- Shields -->
 
-[ci-status-shield]: https://img.shields.io/github/actions/workflow/status/azimstech/YTReVanced-Builder/build-revanced.yml?style=for-the-badge
-[ci-url]:https://github.com/AzimsTech/YTReVanced-Builder/actions/workflows/build-revanced.yml
+[ci-status-shield]: https://img.shields.io/github/actions/workflow/status/azimstech/YTReVanced-Builder/build.yml?style=for-the-badge
+[ci-url]:https://github.com/AzimsTech/YTReVanced-Builder/actions/workflows/build.yml
 [downloads-shield]: https://img.shields.io/github/downloads/azimstech/YTReVanced-Builder/total?style=for-the-badge&logo=github
 [downloads-url]: https://github.com/azimstech/YTReVanced-Builder/releases/latest
 [release-shield-revanced]: https://img.shields.io/github/v/release/AzimsTech/YTReVanced-Builder?filter=*-revanced&style=for-the-badge
@@ -34,6 +37,7 @@
 <!-- Urls -->
 
 [patches-url]:https://github.com/revanced/revanced-patches
+[morphe-patches-url]:https://github.com/MorpheApp/morphe-patches
 [apkmd-url]:https://github.com/tanishqmanuja/apkmirror-downloader
 [cli-url]:https://github.com/revanced/revanced-cli
 

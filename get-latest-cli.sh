@@ -1,23 +1,26 @@
 #!/bin/bash
 set -euo pipefail
 
-GH_API="https://api.github.com/repos/revanced/revanced-cli/releases"
+VARIANT="${VARIANT:-revanced}"
+. "$(dirname "$0")/variants/${VARIANT}.env"
+
+GH_API="https://api.github.com/repos/${CLI_REPO}/releases"
 
 # Sort by published_at descending to guarantee newest release (including prereleases)
-jar_url=$(curl -s "$GH_API" | jq -r '
+jar_url=$(curl -sL "$GH_API" | jq -r --arg re "$CLI_JAR_REGEX" '
   sort_by(.published_at) | reverse
   | .[0].assets[]
-  | select(.name | test("^revanced-cli-.*-all\\.jar$"))
+  | select(.name | test($re))
   | .browser_download_url' | head -n1)
 
-[ -n "$jar_url" ] || { echo "❌ No revanced-cli jar found" >&2; exit 1; }
+[ -n "$jar_url" ] || { echo "❌ No CLI jar found (variant: $VARIANT)" >&2; exit 1; }
 
 filename="${jar_url##*/}"
-version=$(echo "$filename" | sed -E 's/^revanced-cli-(.+)-all\.jar$/\1/')
+version=$(echo "$filename" | sed -E "$CLI_VERSION_SED")
 
 # Version-only mode
 if [[ "${1:-}" == "--version-only" ]]; then
-  echo "ReVanced CLI latest version: $version" >&2
+  echo "$BRAND CLI latest version: $version" >&2
   echo "$version"
   exit 0
 fi

@@ -1,9 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-latest=$(java -jar revanced-cli-*-all.jar list-patches \
-  --packages --versions -bp patches-*.rvp \
-  --filter-package-name=com.google.android.youtube \
+VARIANT="${VARIANT:-revanced}"
+. "$(dirname "$0")/variants/${VARIANT}.env"
+
+latest=$(java -jar $CLI_JAR list-patches $LIST_FLAGS \
+  --filter-package-name=com.google.android.youtube $LIST_EXTRA \
   | grep -E '^\s+[0-9]+\.[0-9]+\.[0-9]+\s*$' \
   | tr -d ' \t' \
   | sort -uV \
