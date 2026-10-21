@@ -34,7 +34,7 @@ Per-variant settings (CLI repo, flags, keystore name, tag suffix) live in `varia
 [release-shield-revanced]: https://img.shields.io/github/v/release/AzimsTech/YTReVanced-Builder?filter=*-revanced&style=for-the-badge
 [release-shield-morphe]: https://img.shields.io/github/v/release/AzimsTech/YTReVanced-Builder?filter=*-morphe&style=for-the-badge
 [release-revanced-url]: https://github.com/AzimsTech/YTReVanced-Builder/releases/tag/v6.2.1-revanced
-[release-morphe-url]: https://github.com/AzimsTech/YTReVanced-Builder/releases/tag/v1.48.0-dev.15-morphe
+[release-morphe-url]: https://github.com/AzimsTech/YTReVanced-Builder/releases/tag/v1.48.0-dev.18-morphe
 
 <!-- Urls -->
 
