@@ -125,7 +125,11 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ${{ env.CLI_JAR }}
-          key: ${{ env.TAG_SUFFIX }}-cli-${{ steps.get-latest-cli-version.outputs.version }}
+          # actions/cache matches keys by PREFIX, and the stable version string
+          # is a prefix of the dev one (1.19.0 vs 1.19.0-dev.19), which would
+          # restore the stale dev jar on the dev->stable flip. The fixed suffix
+          # sits right after the version, so no key can prefix-match another.
+          key: ${{ env.TAG_SUFFIX }}-cli-${{ steps.get-latest-cli-version.outputs.version }}-jar
 
       - name: Download ${{ env.BRAND }} CLI
         if: steps.cache-cli.outputs.cache-hit != 'true'
@@ -147,7 +151,8 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ${{ env.PATCHES_GLOB }}
-          key: ${{ env.TAG_SUFFIX }}-patches-${{ steps.get-dev-patches-version.outputs.version }}
+          # Same prefix-proofing as the CLI cache key (v1.48.0 vs v1.48.0-dev.18).
+          key: ${{ env.TAG_SUFFIX }}-patches-${{ steps.get-dev-patches-version.outputs.version }}-bundle
 
       - name: Download ${{ env.BRAND }} Patches
         if: steps.cache-patches.outputs.cache-hit != 'true'
