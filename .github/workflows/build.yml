@@ -130,6 +130,9 @@ jobs:
       - name: Download ${{ env.BRAND }} CLI
         if: steps.cache-cli.outputs.cache-hit != 'true'
         run: |
+          # A prefix-matched cache restore can leave a stale jar behind while
+          # cache-hit is still false; drop it so $CLI_JAR never matches two files.
+          rm -f $CLI_JAR
           VERSION=$(./get-latest-cli.sh)
           echo "Downloaded CLI version: $VERSION"
 
@@ -149,6 +152,8 @@ jobs:
       - name: Download ${{ env.BRAND }} Patches
         if: steps.cache-patches.outputs.cache-hit != 'true'
         run: |
+          # Same stale-restore guard as the CLI step: never keep two bundles.
+          rm -f $PATCHES_GLOB
           VERSION=$(./$PATCHES_SCRIPT)
           echo "Downloaded patches version: $VERSION"
 
