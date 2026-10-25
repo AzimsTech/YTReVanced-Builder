@@ -1,8 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-# Uses AzimsTech fork of apkmirror-downloader (routes HTTP through curl to
-# bypass APKMirror's Cloudflare fingerprinting of Node/Bun fetch).
+# Uses AzimsTech's fork of the downloader (routes HTTP through curl to
+# bypass the site's Cloudflare fingerprinting of Node/Bun fetch).
 API="https://api.github.com/repos/AzimsTech/apkmirror-downloader/releases?per_page=1"
 
 # Get latest tag

@@ -19,8 +19,9 @@
 | `get-dev-rvp.sh`    | Retrieves and downloads the latest pre-release of the [revanced-patches][patches-url] .RVP patch file.                                                              |
 | `get-dev-mpp.sh`    | Retrieves and downloads the latest release of [morphe-patches][morphe-patches-url] .MPP patch file.                                                                  |
 | `fetch-yt-ver.sh`   | Uses the variant's CLI to extract and print the latest supported YT version from its patches                                                                        |
-| `get-apkmd.sh`      | Fetch the latest apkmd binary release from the [tanishqmanuja/apkmirror-downloader][apkmd-url] GitHub repo , download it, save it as apkmd, and make it executable. |
+| `get-apkmd.sh`      | Fetch the latest apkmd binary release from [its GitHub repo][apkmd-url], download it, save it as apkmd, and make it executable. |
 | `get-keystore.sh`      | Fetch the existing keystore from the release, download it and store in cache. |
+| `get-apk-url.sh` | Resolve the variant page URL (universal/nodpi/APK) for a YT version by scraping the release page's variants table, falling back to the release page URL. |
 
 Per-variant settings (CLI repo, flags, keystore name, tag suffix) live in `variants/revanced.env` and `variants/morphe.env`.
 
